@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RoyalEvents — Luxury Event Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --royal: #4b0082;
+        --gold: #d4af37;
+        --black: #07060a;
+        --white: #ffffff;
+        --glass: rgba(255, 255, 255, 0.06);
+        --glass2: rgba(212, 175, 55, 0.10);
+        --stroke: rgba(255, 255, 255, 0.12);
+        --strokeGold: rgba(212, 175, 55, 0.55);
+        --shadow: 0 22px 55px rgba(0, 0, 0, 0.55);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--white);
+        background: radial-gradient(circle at top, rgba(212,175,55,0.18), transparent 55%),
+          radial-gradient(circle at bottom, rgba(75,0,130,0.85), #000 65%);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      a { color: inherit; text-decoration: none; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+      .header {
+        position: sticky; top: 0; z-index: 50;
+        background: rgba(0,0,0,0.45);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--stroke);
+      }
+      .header-inner {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 0;
+      }
+      .brand {
+        display: flex; align-items: center; gap: 10px;
+        font-family: "Playfair Display", serif;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+      .crown {
+        width: 22px; height: 22px;
+        display: inline-grid; place-items: center;
+        color: var(--gold);
+        filter: drop-shadow(0 8px 18px rgba(212,175,55,0.25));
+      }
+      .brand .gold { color: var(--gold); }
+      .nav {
+        display: none;
+        gap: 22px;
+        font-size: 13px;
+        opacity: 0.92;
+      }
+      .nav a { transition: color 200ms ease; }
+      .nav a:hover { color: var(--gold); }
+      .actions { display: flex; gap: 10px; align-items: center; }
+      .btn {
+        border: 1px solid var(--stroke);
+        background: rgba(255,255,255,0.05);
+        color: var(--white);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 220ms ease, background 220ms ease, border-color 220ms ease, color 220ms ease;
+        user-select: none;
+      }
+      .btn:hover { transform: translateY(-1px); border-color: rgba(212,175,55,0.65); color: var(--gold); }
+      .btn-gold {
+        background: var(--gold);
+        color: #130f05;
+        border-color: rgba(212,175,55,0.75);
+        box-shadow: var(--shadow);
+        font-weight: 700;
+      }
+      .btn-gold:hover { color: #000; background: #fff; border-color: rgba(255,255,255,0.65); }
+      .hero {
+        padding: 34px 0 24px;
+      }
+      .grid {
+        display: grid; gap: 16px;
+      }
+      .hero-grid { grid-template-columns: 1fr; }
+      .kicker {
+        font-size: 10px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: rgba(212,175,55,0.85);
+        margin: 0 0 10px;
+      }
+      h1, h2, h3 {
+        font-family: "Playfair Display", serif;
+        margin: 0;
+      }
+      h1 { font-size: clamp(28px, 4vw, 54px); line-height: 1.12; }
+      .gold-text {
+        background: linear-gradient(120deg, #fff8e1, #d4af37, #ffffff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .sub {
+        color: rgba(255,255,255,0.74);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 12px 0 18px;
+        max-width: 60ch;
+      }
+      .stats { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+      .stat { font-size: 11px; color: rgba(255,255,255,0.66); }
+      .stat strong { display: block; color: #fff; font-size: 12px; letter-spacing: 0.06em; }
+      .card {
+        background: linear-gradient(135deg, rgba(212,175,55,0.11), rgba(255,255,255,0.04));
+        border: 1px solid var(--stroke);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        backdrop-filter: blur(16px);
+      }
+      .card.gold-stroke { border-color: rgba(212,175,55,0.4); }
+      .card:hover { border-color: rgba(212,175,55,0.55); }
+      .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .mini {
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(212,175,55,0.35);
+        border-radius: 18px;
+        padding: 10px;
+      }
+      .mini .label {
+        font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.62);
+      }
+      .mini .value { font-weight: 700; margin-top: 6px; }
+      .section { padding: 26px 0; }
+      .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+      h2 { font-size: 26px; }
+      .muted { color: rgba(255,255,255,0.66); font-size: 12px; }
+      .vendor-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: rgba(255,255,255,0.04);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.72);
+      }
+      .vendor {
+        display: flex; flex-direction: column; gap: 10px;
+        cursor: pointer;
+        transition: transform 250ms ease;
+      }
+      .vendor:hover { transform: translateY(-2px); }
+      .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .rating { color: var(--gold); font-weight: 700; font-size: 12px; letter-spacing: 0.06em; }
+      .vendor h3 { font-size: 18px; }
+      .tagline { font-size: 12px; color: rgba(255,255,255,0.72); line-height: 1.55; }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .chip {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        border-radius: 999px;
+        padding: 6px 10px;
+        color: rgba(255,255,255,0.72);
+      }
+      .filters {
+        display: grid; gap: 10px;
+        grid-template-columns: 1fr;
+        margin-top: 12px;
+      }
+      .field label {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.62);
+        margin-bottom: 6px;
+      }
+      .field input, .field select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(0,0,0,0.35);
+        color: #fff;
+        outline: none;
+      }
+      .field input:focus, .field select:focus { border-color: rgba(212,175,55,0.7); }
+      .rangeRow { display: flex; align-items: center; gap: 10px; }
+      input[type="range"] { accent-color: var(--gold); }
+      .gallery-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+      .gallery-item {
+        position: relative;
+        border-radius: 26px;
+        border: 1px solid var(--stroke);
+        overflow: hidden;
+        height: 190px;
+        background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(75,0,130,0.75), rgba(0,0,0,0.95));
+        cursor: pointer;
+        transition: transform 250ms ease, border-color 250ms ease;
+      }
+      .gallery-item:hover { transform: translateY(-2px); border-color: rgba(212,175,55,0.55); }
+      .gallery-item::after {
+        content: "";
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,0.35);
+        transition: background 250ms ease;
+      }
+      .gallery-item:hover::after { background: rgba(0,0,0,0.20); }
+      .gallery-text {
+        position: absolute; left: 16px; right: 16px; bottom: 16px;
+        z-index: 1;
+      }
+      .gallery-text .hint { color: rgba(212,175,55,0.95); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 6px; }
+      .modal {
+        position: fixed; inset: 0; z-index: 80;
+        display: none;
+        align-items: center; justify-content: center;
+        background: rgba(0,0,0,0.68);
+        backdrop-filter: blur(8px);
+        padding: 16px;
+      }
+      .modal.open { display: flex; }
+      .modal-content { width: min(860px, 100%); }
+      .modal-top { display: flex; align-items: start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+      .modal-title { font-size: 26px; }
+      .two-col { display: grid; gap: 12px; grid-template-columns: 1fr; }
+      .plan-block { display: grid; gap: 10px; }
+      .plan-kv { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); }
+      .kv { border-radius: 18px; border: 1px solid rgba(212,175,55,0.35); background: rgba(0,0,0,0.35); padding: 12px; }
+      .kv .k { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+      .kv .v { font-weight: 800; margin-top: 6px; }
+      .list { margin: 0; padding-left: 18px; color: rgba(255,255,255,0.78); font-size: 12px; line-height: 1.65; }
+      .footer {
+        border-top: 1px solid var(--stroke);
+        padding: 16px 0 22px;
+        text-align: center;
+        color: rgba(255,255,255,0.55);
+        font-size: 11px;
+      }
+      .fade-in { opacity: 0; transform: translateY(12px); transition: opacity 700ms ease, transform 700ms ease; }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+      @media (min-width: 768px) {
+        .nav { display: flex; }
+        .hero { padding: 56px 0 30px; }
+        .hero-grid { grid-template-columns: 1.2fr 0.8fr; gap: 18px; align-items: center; }
+        .vendor-grid { grid-template-columns: repeat(3, 1fr); }
+        .filters { grid-template-columns: 1.2fr 1fr 1fr; align-items: end; }
+        .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        .two-col { grid-template-columns: 1.2fr 0.8fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="RoyalEvents home">
+          <span class="crown" aria-hidden="true">♛</span>
+          <span>Royal<span class="gold">Events</span></span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#vendors">Vendors</a>
+          <a href="#planner">AI Planner</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#stories">Stories</a>
+          <a href="#gallery">Inspiration</a>
+        </nav>
+        <div class="actions">
+          <button class="btn" id="openSignIn">Sign in</button>
+          <a class="btn" href="#vendors">Explore vendors</a>
+          <button class="btn btn-gold" id="openPlannerTop">Open AI planner</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container grid hero-grid">
+          <div class="fade-in">
+            <p class="kicker">Curated Luxury Events</p>
+            <h1>
+              Plan Your Perfect <span class="gold-text">Royal Celebration</span>
+            </h1>
+            <p class="sub">
+              A premium marketplace connecting event organizers with world‑class vendors:
+              photographers, caterers, decorators, DJs, makeup artists, and venues.
+              This single-file demo works by double‑clicking <strong>index.html</strong>.
+            </p>
+            <div class="actions" style="gap:12px; flex-wrap: wrap;">
+              <a class="btn btn-gold" href="#vendors">Browse vendors</a>
+              <a class="btn" href="#planner">Generate plan + PDF</a>
+            </div>
+            <div class="stats">
+              <div class="stat"><strong><span style="color:var(--gold)">4.9</span> rating</strong> Verified partners</div>
+              <div class="stat"><strong>5,000+</strong> Events curated</div>
+              <div class="stat"><strong>Premium</strong> Concierge feel</div>
+            </div>
+          </div>
+
+          <div class="fade-in">
+            <div class="card gold-stroke">
+              <p class="kicker" style="margin-bottom:8px;">Instant AI Event Planner</p>
+              <p class="sub" style="margin:0 0 14px; font-size: 13px;">
+                Enter your event type, guests, budget and city. Get a full plan with budget distribution,
+                vendor mix, timeline, and a downloadable PDF.
+              </p>
+              <div class="mini-grid">
+                <div class="mini">
+                  <div class="label">Event type</div>
+                  <div class="value">Luxury Wedding</div>
+                </div>
+                <div class="mini">
+                  <div class="label">Guests</div>
+                  <div class="value">250</div>
+                </div>
+                <div class="mini">
+                  <div class="label">Curated budget</div>
+                  <div class="value" style="color:var(--gold)">₹18,50,000</div>
+                </div>
+                <div class="mini">
+                  <div class="label">Vendors mapped</div>
+                  <div class="value">Nearby</div>
+                </div>
+              </div>
+              <button class="btn" id="openPlannerCard" style="width:100%; margin-top: 14px;">
+                Open AI event planner
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="vendors" class="section">
+        <div class="container">
+          <div class="section-head fade-in">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Marketplace</p>
+              <h2>Featured Royal Vendors</h2>
+              <div class="muted" style="margin-top:6px;">Filters work instantly · demo data</div>
+            </div>
+            <span class="pill">Touch-friendly · Mobile-first</span>
+          </div>
+
+          <div class="card gold-stroke fade-in">
+            <div class="filters">
+              <div class="field">
+                <label>Category</label>
+                <select id="filterCategory">
+                  <option value="All">All</option>
+                  <option>Wedding planners</option>
+                  <option>Photographers</option>
+                  <option>Caterers</option>
+                  <option>Decorators</option>
+                  <option>DJs</option>
+                  <option>Makeup artists</option>
+                  <option>Event hosts</option>
+                  <option>Lighting services</option>
+                  <option>Venues</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>City</label>
+                <select id="filterCity">
+                  <option value="All">All</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Max starting price</label>
+                <div class="rangeRow">
+                  <input id="filterMaxPrice" type="range" min="50000" max="1000000" step="5000" value="1000000" />
+                  <span id="maxPriceLabel" class="pill" style="border-color: var(--strokeGold); color: var(--gold);">₹10,00,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vendor-grid" id="vendorGrid" style="margin-top: 12px;"></div>
+        </div>
+      </section>
+
+      <section id="planner" class="section">
+        <div class="container">
+          <div class="section-head fade-in">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Intelligent tools</p>
+              <h2>AI Event Planner (Workable)</h2>
+              <div class="muted" style="margin-top:6px;">
+                Generates full details + Download PDF. Works offline in this file.
+              </div>
+            </div>
+            <button class="btn btn-gold" id="generatePlanTop">Generate plan</button>
+          </div>
+
+          <div class="two-col">
+            <div class="card gold-stroke fade-in">
+              <div class="filters" style="grid-template-columns: 1fr; margin-top:0;">
+                <div class="field">
+                  <label>Event type</label>
+                  <select id="plannerType">
+                    <option>Luxury wedding</option>
+                    <option>Birthday soirée</option>
+                    <option>Corporate gala</option>
+                    <option>Private party</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>City</label>
+                  <input id="plannerCity" value="Udaipur" />
+                </div>
+                <div class="filters" style="margin-top: 0;">
+                  <div class="field">
+                    <label>Guests</label>
+                    <input id="plannerGuests" type="number" value="250" min="10" />
+                  </div>
+                  <div class="field">
+                    <label>Budget (₹)</label>
+                    <input id="plannerBudget" type="number" value="1850000" min="50000" />
+                    <div class="muted" style="margin-top: 6px;">
+                      Current: <span id="budgetLive" style="color:var(--gold); font-weight: 700;">₹18,50,000</span>
+                    </div>
+                  </div>
+                  <div class="field" style="display:flex; gap:10px; flex-wrap: wrap; align-items: end;">
+                    <button class="btn btn-gold" id="generatePlan">Generate royal plan</button>
+                    <button class="btn" id="downloadPdf" disabled>Download PDF</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card fade-in">
+              <p class="kicker" style="margin-bottom: 10px;">Planner output</p>
+              <div id="plannerEmpty" class="muted">
+                Set your event details and tap <strong style="color:var(--gold)">Generate royal plan</strong>.
+              </div>
+              <div id="plannerResult" style="display:none;" class="plan-block">
+                <div class="plan-kv">
+                  <div class="kv">
+                    <div class="k">Guests</div>
+                    <div class="v" id="outGuests">—</div>
+                  </div>
+                  <div class="kv">
+                    <div class="k">Budget</div>
+                    <div class="v" id="outBudget" style="color:var(--gold);">—</div>
+                  </div>
+                  <div class="kv">
+                    <div class="k">Cost / guest</div>
+                    <div class="v" id="outCpg">—</div>
+                  </div>
+                </div>
+
+                <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+                  <div class="kicker" style="margin: 0 0 10px;">Budget distribution</div>
+                  <div class="chips" id="outBudgetChips"></div>
+                </div>
+
+                <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+                  <div class="kicker" style="margin: 0 0 10px;">Recommended vendor mix</div>
+                  <ul class="list" id="outVendors"></ul>
+                </div>
+
+                <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+                  <div class="kicker" style="margin: 0 0 10px;">Timeline</div>
+                  <ul class="list" id="outTimeline"></ul>
+                </div>
+
+                <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+                  <div class="kicker" style="margin: 0 0 10px;">Layout direction</div>
+                  <div class="muted" id="outLayout" style="font-size: 12px; line-height: 1.6;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="section">
+        <div class="container">
+          <div class="section-head fade-in">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Seamless journey</p>
+              <h2>How RoyalEvents Works</h2>
+              <div class="muted" style="margin-top:6px;">Four clear steps from idea to celebration</div>
+            </div>
+            <span class="pill">No login required in this demo</span>
+          </div>
+          <div class="vendor-grid">
+            <div class="card fade-in">
+              <div class="kicker" style="margin-bottom:6px;">01 · Share your vision</div>
+              <div class="muted">
+                Choose event type, city, guests, and budget in the AI planner to create a tailored blueprint.
+              </div>
+            </div>
+            <div class="card fade-in">
+              <div class="kicker" style="margin-bottom:6px;">02 · Get curated plan</div>
+              <div class="muted">
+                Receive instant budget distribution, vendor mix, and suggested layout for your event.
+              </div>
+            </div>
+            <div class="card fade-in">
+              <div class="kicker" style="margin-bottom:6px;">03 · Explore vendors</div>
+              <div class="muted">
+                Use the vendor filters to shortlist photographers, decorators, caterers, DJs, and venues matching your plan.
+              </div>
+            </div>
+            <div class="card fade-in">
+              <div class="kicker" style="margin-bottom:6px;">04 · Download & share</div>
+              <div class="muted">
+                Export your AI plan as a PDF and share it with family, planners, or corporate teams.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section">
+        <div class="container">
+          <div class="section-head fade-in">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Curated inspiration</p>
+              <h2>Event Inspiration Gallery</h2>
+              <div class="muted" style="margin-top:6px;">Tap a concept to view details</div>
+            </div>
+            <span class="pill">Luxury concepts</span>
+          </div>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+      </section>
+
+      <section id="stories" class="section">
+        <div class="container">
+          <div class="section-head fade-in">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Stories</p>
+              <h2>Host Testimonials</h2>
+              <div class="muted" style="margin-top:6px;">How a royal plan feels in real life</div>
+            </div>
+          </div>
+          <div class="vendor-grid">
+            <div class="card fade-in">
+              <div class="muted" style="font-size:12px; line-height:1.7;">
+                “Our Udaipur destination wedding felt like a private palace takeover. Every vendor
+                was in sync because we started with a clear RoyalEvents plan.”
+              </div>
+              <div class="muted" style="margin-top:8px; font-size:11px;">
+                <strong style="color:#fff;">Aarav &amp; Diya</strong> · Luxury wedding in Udaipur
+              </div>
+            </div>
+            <div class="card fade-in">
+              <div class="muted" style="font-size:12px; line-height:1.7;">
+                “For our corporate gala, the AI planner gave us a realistic budget and vendor mix.
+                It became the base deck we shared with leadership.”
+              </div>
+              <div class="muted" style="margin-top:8px; font-size:11px;">
+                <strong style="color:#fff;">Khurana Group</strong> · Annual corporate gala
+              </div>
+            </div>
+            <div class="card fade-in">
+              <div class="muted" style="font-size:12px; line-height:1.7;">
+                “I used the single-page planner and PDF export to align my family on décor and budget
+                for a 50th birthday soirée. It made decisions calm, not chaotic.”
+              </div>
+              <div class="muted" style="margin-top:8px; font-size:11px;">
+                <strong style="color:#fff;">Sonia Mehta</strong> · 50th birthday soirée
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        © <span id="year"></span> RoyalEvents. Luxury event marketplace demo.
+      </footer>
+    </main>
+
+    <!-- Sign in / Create account modal -->
+    <div class="modal" id="signInModal">
+      <div class="modal-content">
+        <div class="card gold-stroke">
+          <div class="modal-top">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Account</p>
+              <div class="modal-title">Sign in to RoyalEvents</div>
+              <div class="muted" style="margin-top:6px; font-size:12px;">
+                This demo does not connect to a real backend. Use it to visualize how a royal sign-in would feel.
+              </div>
+            </div>
+            <button class="btn" id="closeSignIn">Close</button>
+          </div>
+          <div class="two-col" style="grid-template-columns: 1.1fr 0.9fr;">
+            <form id="signInForm" class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+              <div class="field">
+                <label>Email</label>
+                <input id="signInEmail" type="email" required placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input id="signInPassword" type="password" required placeholder="••••••••" />
+              </div>
+              <button type="submit" class="btn btn-gold" style="width:100%; margin-top:10px;">
+                Sign in (demo)
+              </button>
+            </form>
+            <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+              <div class="kicker" style="margin:0 0 8px;">What you would see</div>
+              <ul class="list">
+                <li>Organizer dashboard with event checklist and bookings.</li>
+                <li>Vendor dashboard with availability calendar and packages.</li>
+                <li>Admin view with analytics on users, vendors, and revenue.</li>
+              </ul>
+              <div class="muted" style="margin-top:8px; font-size:11px;">
+                In this offline <strong>index.html</strong> version, sign-in only updates the welcome
+                message in the header.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <div class="card gold-stroke">
+          <div class="modal-top">
+            <div>
+              <p class="kicker" style="margin:0 0 6px;">Inspiration</p>
+              <div class="modal-title" id="modalTitle">—</div>
+              <div class="muted" id="modalSubtitle" style="margin-top:6px;">—</div>
+            </div>
+            <button class="btn" id="closeModal">Close</button>
+          </div>
+          <div class="card" style="box-shadow:none; border-color: rgba(212,175,55,0.28);">
+            <div class="kicker" style="margin:0 0 8px;">Royal direction</div>
+            <div class="muted" id="modalDesc" style="font-size: 13px; line-height: 1.7;"></div>
+          </div>
+          <div class="actions" style="margin-top: 12px; justify-content: flex-end;">
+            <a class="btn btn-gold" href="#vendors" id="modalFind">Find matching vendors</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jsPDF (UMD) to work from file:// -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script>
+      const money = (n) => new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(n);
+      const inr = (n) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n);
+
+      const vendors = [
+        {
+          id: "v1",
+          name: "Opulent Frames Photography",
+          category: "Photographers",
+          city: "Udaipur",
+          rating: 4.9,
+          priceFrom: 180000,
+          tagline: "Cinematic wedding storytelling with editorial finesse.",
+          highlights: ["2-day coverage", "Drone + reels", "Same-day teaser"]
+        },
+        {
+          id: "v2",
+          name: "Palace View Banquets",
+          category: "Venues",
+          city: "Udaipur",
+          rating: 4.8,
+          priceFrom: 650000,
+          tagline: "Grand halls, royal hospitality, and flawless logistics.",
+          highlights: ["Up to 700 guests", "Valet + security", "In-house concierge"]
+        },
+        {
+          id: "v3",
+          name: "Starlight Décor Atelier",
+          category: "Decorators",
+          city: "Jaipur",
+          rating: 4.9,
+          priceFrom: 220000,
+          tagline: "Florals, drapes, and luxury lighting that feel like art.",
+          highlights: ["Mandap concepts", "Floral ceiling", "Gold accents"]
+        },
+        {
+          id: "v4",
+          name: "Saffron & Silk Catering",
+          category: "Caterers",
+          city: "Delhi",
+          rating: 4.7,
+          priceFrom: 1400,
+          tagline: "Fine dining menus with live counters and bespoke plating.",
+          highlights: ["Tasting included", "Jain menus", "Dessert bar"]
+        },
+        {
+          id: "v5",
+          name: "Velvet Beats DJ Collective",
+          category: "DJs",
+          city: "Mumbai",
+          rating: 4.8,
+          priceFrom: 85000,
+          tagline: "High-energy sets with premium audio and stage design.",
+          highlights: ["Sangeet + reception", "Lighting add-on", "MC available"]
+        },
+        {
+          id: "v6",
+          name: "The Crown Planner Studio",
+          category: "Wedding planners",
+          city: "Udaipur",
+          rating: 5.0,
+          priceFrom: 250000,
+          tagline: "White-glove planning with discreet, end-to-end execution.",
+          highlights: ["Vendor curation", "Run-sheet", "Guest experience"]
+        }
+      ];
+
+      const inspirations = [
+        {
+          title: "Opulent Sangeet",
+          subtitle: "Gold lighting · floral ceiling · velvet stage",
+          description:
+            "A high-energy night with layered lighting, luxe drapes, and a stage designed for performances. Recommended: DJ + MC + lighting designer + content creator."
+        },
+        {
+          title: "Modern Ballroom",
+          subtitle: "Minimal luxury · black-tie · crystal accents",
+          description:
+            "A modern black-tie concept with clean florals, crystal highlights, and a runway-style entrance. Recommended: planner + decorator + AV team + live band."
+        },
+        {
+          title: "Under-the-stars Soirée",
+          subtitle: "Outdoor romance · warm light · lounge seating",
+          description:
+            "A starlit evening with warm ambient lighting, lounge zones, and subtle gold accents. Recommended: venue + decorator + caterer + acoustic trio."
+        }
+      ];
+
+      const el = (id) => document.getElementById(id);
+
+      // Populate city filter
+      const citySelect = el("filterCity");
+      const cities = ["All", ...Array.from(new Set(vendors.map((v) => v.city)))];
+      cities.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        citySelect.appendChild(opt);
+      });
+
+      // Filters
+      const filterCategory = el("filterCategory");
+      const filterCity = el("filterCity");
+      const filterMaxPrice = el("filterMaxPrice");
+      const maxPriceLabel = el("maxPriceLabel");
+      const vendorGrid = el("vendorGrid");
+
+      function renderVendors() {
+        const c = filterCategory.value;
+        const city = filterCity.value;
+        const maxP = Number(filterMaxPrice.value);
+        maxPriceLabel.textContent = "₹" + money(maxP);
+
+        const list = vendors
+          .filter((v) => (c === "All" ? true : v.category === c))
+          .filter((v) => (city === "All" ? true : v.city === city))
+          .filter((v) => v.priceFrom <= maxP)
+          .sort((a, b) => b.rating - a.rating);
+
+        vendorGrid.innerHTML = "";
+        list.forEach((v) => {
+          const card = document.createElement("div");
+          card.className = "card gold-stroke vendor";
+          card.tabIndex = 0;
+          card.innerHTML = `
+            <div class="row">
+              <div>
+                <h3>${v.name}</h3>
+                <div class="muted" style="margin-top:2px;">${v.category} · ${v.city}</div>
+              </div>
+              <div class="rating">★ ${v.rating}</div>
+            </div>
+            <div class="tagline">${v.tagline}</div>
+            <div class="chips">${v.highlights.map((h) => `<span class="chip">${h}</span>`).join("")}</div>
+            <div class="row">
+              <div class="muted">From <span style="color:var(--gold); font-weight: 800;">₹${money(v.priceFrom)}</span></div>
+              <button class="btn btn-gold" data-request="${v.id}">Request</button>
+            </div>
+          `;
+          vendorGrid.appendChild(card);
+        });
+      }
+      filterCategory.addEventListener("change", renderVendors);
+      filterCity.addEventListener("change", renderVendors);
+      filterMaxPrice.addEventListener("input", renderVendors);
+      vendorGrid.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-request]");
+        if (!btn) return;
+        const v = vendors.find((x) => x.id === btn.dataset.request);
+        alert(`Demo action:\nRequested quote from ${v.name}.\n(Production: vendor profile + booking + payment flow)`);
+      });
+      renderVendors();
+
+      // Gallery
+      const galleryGrid = el("galleryGrid");
+      const modal = el("modal");
+      const closeModal = el("closeModal");
+      const modalTitle = el("modalTitle");
+      const modalSubtitle = el("modalSubtitle");
+      const modalDesc = el("modalDesc");
+
+      inspirations.forEach((i) => {
+        const item = document.createElement("div");
+        item.className = "gallery-item";
+        item.innerHTML = `
+          <div class="gallery-text">
+            <div class="muted">Signature concept</div>
+            <h3 style="margin-top:4px;">${i.title}</h3>
+            <div class="hint">Tap to view details</div>
+          </div>
+        `;
+        item.addEventListener("click", () => {
+          modalTitle.textContent = i.title;
+          modalSubtitle.textContent = i.subtitle;
+          modalDesc.textContent = i.description;
+          modal.classList.add("open");
+        });
+        galleryGrid.appendChild(item);
+      });
+      closeModal.addEventListener("click", () => modal.classList.remove("open"));
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("open");
+      });
+
+      // Sign in modal (demo, no backend)
+      const signInModal = el("signInModal");
+      const openSignIn = el("openSignIn");
+      const closeSignIn = el("closeSignIn");
+      const signInForm = el("signInForm");
+      const signInEmail = el("signInEmail");
+
+      function updateWelcome() {
+        const stored = localStorage.getItem("royalevents_demo_user");
+        const header = document.querySelector(".header-inner");
+        if (!header) return;
+        let badge = document.getElementById("welcomeBadge");
+        if (stored) {
+          const name = JSON.parse(stored).email.split("@")[0];
+          if (!badge) {
+            badge = document.createElement("span");
+            badge.id = "welcomeBadge";
+            badge.className = "pill";
+            badge.style.marginLeft = "8px";
+            header.insertBefore(badge, header.firstChild.nextSibling);
+          }
+          badge.textContent = "Signed in as " + name;
+        } else if (badge) {
+          badge.remove();
+        }
+      }
+
+      openSignIn.addEventListener("click", () => {
+        signInModal.classList.add("open");
+        signInEmail.focus();
+      });
+      closeSignIn.addEventListener("click", () => signInModal.classList.remove("open"));
+      signInModal.addEventListener("click", (e) => {
+        if (e.target === signInModal) signInModal.classList.remove("open");
+      });
+
+      signInForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = signInEmail.value.trim();
+        if (!email) return;
+        localStorage.setItem("royalevents_demo_user", JSON.stringify({ email }));
+        updateWelcome();
+        alert("Signed in (demo only) as " + email + ". In a full app this would open your dashboard.");
+        signInModal.classList.remove("open");
+      });
+
+      // Planner
+      const plannerType = el("plannerType");
+      const plannerCity = el("plannerCity");
+      const plannerGuests = el("plannerGuests");
+      const plannerBudget = el("plannerBudget");
+      const budgetLive = el("budgetLive");
+      const generatePlan = el("generatePlan");
+      const generatePlanTop = el("generatePlanTop");
+      const downloadPdf = el("downloadPdf");
+      const plannerEmpty = el("plannerEmpty");
+      const plannerResult = el("plannerResult");
+      const outGuests = el("outGuests");
+      const outBudget = el("outBudget");
+      const outCpg = el("outCpg");
+      const outBudgetChips = el("outBudgetChips");
+      const outVendors = el("outVendors");
+      const outTimeline = el("outTimeline");
+      const outLayout = el("outLayout");
+
+      let lastPlan = null;
+
+      function buildPlan({ type, guests, budget, city }) {
+        const baseGuests = Math.max(Number(guests) || 0, 50);
+        const safeBudget = Math.max(Number(budget) || 0, 200000);
+        const mix =
+          type === "Corporate gala"
+            ? { venue: 0.05, catering: 0.45, decoration: 0.20, photography: 0.10, entertainment: 0.15, other: 0.05 }
+            : (type === "Birthday soirée" || type === "Private party")
+            ? { venue: 0.05, catering: 0.35, decoration: 0.25, photography: 0.15, entertainment: 0.15, other: 0.05 }
+            : { venue: 0.05, catering: 0.40, decoration: 0.25, photography: 0.15, entertainment: 0.10, other: 0.05 };
+
+        const allocations = Object.fromEntries(Object.entries(mix).map(([k,v]) => [k, Math.round(safeBudget * v)]));
+        const vendorMix =
+          type === "Corporate gala"
+            ? ["Venue (ballroom / hotel) + AV", "Premium caterer + mixology counters", "Lighting designer + stage", "Corporate MC/host", "Live band or DJ", "Photographer (event coverage)"]
+            : type === "Birthday soirée"
+            ? ["Boutique decorator", "Gourmet caterer", "Lifestyle photographer", "DJ + ambience lighting"]
+            : ["Wedding planner (lead)", "Venue + guest experience concierge", "Decor & florals team", "Luxury caterer", "Cinematic photographer + reels", "DJ / music director"];
+
+        const timeline = [
+          { when: "60–45 days", what: "Shortlist vendors · lock venue · concept moodboard" },
+          { when: "45–30 days", what: "Contracts · tastings · décor mockups · logistics plan" },
+          { when: "30–14 days", what: "Run-sheet · guest flow · vendor coordination call" },
+          { when: "14–3 days", what: "Final approvals · payment milestones · contingency plan" },
+          { when: "Event day", what: "Execution · vendor check-ins · moments + media capture" }
+        ];
+
+        const layoutHint =
+          type === "Corporate gala"
+            ? "Grand ballroom with stage, dual screens, and cocktail networking zones. Keep catering flow separate from stage access."
+            : type === "Birthday soirée"
+            ? "Lounge-style seating with a central “cake moment”, warm ambient lighting, and a compact dance floor."
+            : "Ceremony aisle with floral entry, central mandap, followed by reception stage + dance floor. Keep photo spots near soft lighting.";
+
+        const cpg = Math.round(safeBudget / baseGuests);
+
+        return { meta: { type, city, guests: baseGuests, budget: safeBudget, cpg }, allocations, vendorMix, timeline, layoutHint };
+      }
+
+      function setBudgetLive() {
+        budgetLive.textContent = inr(Number(plannerBudget.value || 0));
+      }
+      plannerBudget.addEventListener("input", setBudgetLive);
+      setBudgetLive();
+
+      function renderPlan(plan) {
+        plannerEmpty.style.display = "none";
+        plannerResult.style.display = "grid";
+
+        outGuests.textContent = String(plan.meta.guests);
+        outBudget.textContent = inr(plan.meta.budget);
+        outCpg.textContent = "₹" + money(plan.meta.cpg);
+
+        const chips = [
+          ["Venue", plan.allocations.venue],
+          ["Catering", plan.allocations.catering],
+          ["Decoration", plan.allocations.decoration],
+          ["Photography", plan.allocations.photography],
+          ["Entertainment", plan.allocations.entertainment],
+          ["Other", plan.allocations.other]
+        ];
+        outBudgetChips.innerHTML = chips.map(([k, v]) => `<span class="chip">${k}: ₹${money(v)}</span>`).join("");
+
+        outVendors.innerHTML = plan.vendorMix.map((v) => `<li>${v}</li>`).join("");
+        outTimeline.innerHTML = plan.timeline.map((t) => `<li><strong style="color:var(--gold)">${t.when}</strong> — ${t.what}</li>`).join("");
+        outLayout.textContent = plan.layoutHint;
+
+        downloadPdf.disabled = false;
+      }
+
+      function generate() {
+        generatePlan.disabled = true;
+        generatePlan.textContent = "Designing…";
+        const payload = {
+          type: plannerType.value,
+          city: plannerCity.value.trim() || "—",
+          guests: plannerGuests.value,
+          budget: plannerBudget.value
+        };
+        setTimeout(() => {
+          lastPlan = buildPlan(payload);
+          renderPlan(lastPlan);
+          generatePlan.disabled = false;
+          generatePlan.textContent = "Generate royal plan";
+        }, 650);
+      }
+
+      generatePlan.addEventListener("click", generate);
+      generatePlanTop.addEventListener("click", () => {
+        document.querySelector("#planner").scrollIntoView({ behavior: "smooth" });
+        setTimeout(generate, 350);
+      });
+
+      function downloadPlanPdf() {
+        if (!lastPlan) return;
+        try {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          const left = 16;
+          let y = 18;
+
+          doc.setFont("Times", "Bold");
+          doc.setFontSize(18);
+          doc.setTextColor(75, 0, 130);
+          doc.text("RoyalEvents – AI Event Planner Report", left, y);
+          y += 8;
+          doc.setDrawColor(212, 175, 55);
+          doc.setLineWidth(0.4);
+          doc.line(left, y, 195 - left, y);
+          y += 8;
+
+          doc.setFont("Times", "Normal");
+          doc.setFontSize(11);
+          doc.setTextColor(0, 0, 0);
+
+          const s = lastPlan.meta;
+          const summary = [
+            `Event type: ${s.type}`,
+            `City: ${s.city}`,
+            `Guests: ${s.guests}`,
+            `Budget: ₹${money(s.budget)}`,
+            `Estimated cost/guest: ₹${money(s.cpg)}`
+          ];
+          summary.forEach((line) => { doc.text(line, left, y); y += 6; });
+
+          y += 4;
+          doc.setFont("Times", "Bold");
+          doc.setTextColor(75, 0, 130);
+          doc.text("Budget distribution", left, y);
+          y += 6;
+          doc.setFont("Times", "Normal");
+          doc.setTextColor(0, 0, 0);
+          const rows = [
+            ["Venue", lastPlan.allocations.venue],
+            ["Catering", lastPlan.allocations.catering],
+            ["Decoration", lastPlan.allocations.decoration],
+            ["Photography", lastPlan.allocations.photography],
+            ["Entertainment", lastPlan.allocations.entertainment],
+            ["Other & contingency", lastPlan.allocations.other]
+          ];
+          rows.forEach(([label, amt]) => { doc.text(`${label}: ₹${money(amt)}`, left, y); y += 6; });
+
+          y += 4;
+          doc.setFont("Times", "Bold");
+          doc.setTextColor(75, 0, 130);
+          doc.text("Recommended vendor mix", left, y);
+          y += 6;
+          doc.setFont("Times", "Normal");
+          doc.setTextColor(0, 0, 0);
+          lastPlan.vendorMix.forEach((v) => { doc.text(`• ${v}`, left, y); y += 6; });
+
+          y += 4;
+          doc.setFont("Times", "Bold");
+          doc.setTextColor(75, 0, 130);
+          doc.text("Timeline", left, y);
+          y += 6;
+          doc.setFont("Times", "Normal");
+          doc.setTextColor(0, 0, 0);
+          lastPlan.timeline.forEach((t) => {
+            const line = `${t.when}: ${t.what}`;
+            const lines = doc.splitTextToSize(line, 195 - left * 2);
+            doc.text(lines, left, y);
+            y += lines.length * 6;
+          });
+
+          y += 4;
+          doc.setFont("Times", "Bold");
+          doc.setTextColor(75, 0, 130);
+          doc.text("Layout direction", left, y);
+          y += 6;
+          doc.setFont("Times", "Normal");
+          doc.setTextColor(0, 0, 0);
+          const layoutLines = doc.splitTextToSize(lastPlan.layoutHint, 195 - left * 2);
+          doc.text(layoutLines, left, y);
+
+          doc.save("RoyalEvents-AI-Event-Plan.pdf");
+        } catch (e) {
+          console.error(e);
+          alert("PDF could not be generated. If you are offline, ensure the jsPDF CDN is reachable.");
+        }
+      }
+
+      downloadPdf.addEventListener("click", downloadPlanPdf);
+
+      // Quick open planner buttons
+      function goPlanner() {
+        document.querySelector("#planner").scrollIntoView({ behavior: "smooth" });
+      }
+      el("openPlannerTop").addEventListener("click", goPlanner);
+      el("openPlannerCard").addEventListener("click", goPlanner);
+
+      // Fade-in on scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".fade-in").forEach((n) => io.observe(n));
+
+      // Year
+      el("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
